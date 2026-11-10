@@ -1,0 +1,379 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#010704">
+<meta name="description" content="Gülpınar Kültür Dayanışma ve Yardımlaşma Derneği aidat sorgulama uygulaması.">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Gülpınar Aidat">
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="apple-touch-icon" href="./icons/icon-192.png">
+<title>Gülpınar Aidat Sorgulama</title>
+</head>
+<body>
+
+<style>
+:root{color-scheme:dark;--pwa-bg:#010704;--pwa-green:#00f56a;--pwa-text:#e7ffef}
+html,body{margin:0!important;padding:0!important;width:100%;min-height:100%;background:#010704!important;overflow-x:hidden}
+body{font-family:Arial,Helvetica,sans-serif!important}
+#navbar-iframe,.blogger-breadcrumbs,.header-outer,.header-wrapper,.post-title,.post-header,.post-footer,.sidebar,.footer-outer,.blog-pager{display:none!important}
+body #gdp-aidat-sorgu{position:relative!important;width:100%!important;max-width:none!important;min-height:100svh!important;margin:0!important;padding:0!important;color:var(--pwa-text)!important;background:#010704!important;font-family:Arial,Helvetica,sans-serif!important}
+#gdp-aidat-sorgu .gdp-shell{width:100%!important;min-height:100svh!important;border:0!important;border-radius:0!important;box-shadow:none!important;background:#010704!important;display:flex;flex-direction:column}
+#gdp-aidat-sorgu .gdp-head{padding:clamp(28px,7vh,64px) 20px 28px!important;flex:0 0 auto}
+#gdp-aidat-sorgu .gdp-form{padding:clamp(22px,5vw,34px)!important}
+#gdp-aidat-sorgu #gdp-sonuc{width:auto!important;margin:0 clamp(16px,4vw,34px) 24px!important;flex:1 0 auto}
+#gdp-aidat-sorgu .gdp-foot{margin-top:auto;padding:18px 20px max(22px,env(safe-area-inset-bottom))!important}
+#gdp-aidat-sorgu .gdp-label{font-family:Arial,Helvetica,sans-serif!important;font-size:15px!important;letter-spacing:.5px!important}
+#gdp-aidat-sorgu #gdp-tc{font-family:Arial,Helvetica,sans-serif!important;font-size:20px!important;letter-spacing:3px!important}
+#gdp-aidat-sorgu .gdp-head h2{font-family:Arial,Helvetica,sans-serif!important;font-weight:900!important;letter-spacing:1.5px!important}
+#gdp-aidat-sorgu .gdp-head p,#gdp-aidat-sorgu .gdp-section-title,#gdp-aidat-sorgu .gdp-status,#gdp-aidat-sorgu .gdp-member,#gdp-aidat-sorgu .gdp-payment,#gdp-aidat-sorgu .gdp-total,#gdp-aidat-sorgu .gdp-empty,#gdp-aidat-sorgu .gdp-bank,#gdp-aidat-sorgu .gdp-foot,#gdp-aidat-sorgu table{font-family:Arial,Helvetica,sans-serif!important;letter-spacing:normal!important}
+#gdp-aidat-sorgu .gdp-head p{font-size:13px!important}
+#gdp-aidat-sorgu .gdp-status-title{font-size:clamp(22px,6vw,30px)!important}
+#gdp-aidat-sorgu .gdp-debt-amount{font-size:clamp(28px,8vw,38px)!important}
+#gdp-aidat-sorgu .gdp-table-wrap{max-width:100%}
+#gdp-aidat-sorgu .gdp-scan-status{padding:20px;border:1px solid #168a46;background:#03170b;border-radius:12px;color:#a6ffc4;text-align:center;font:700 13px Arial,sans-serif;letter-spacing:.5px}
+#gdp-aidat-sorgu .gdp-scan-status strong{display:block;font-size:clamp(17px,4.5vw,23px);margin-bottom:9px;color:#baffce}
+#gdp-aidat-sorgu .gdp-scan-status span{font-size:11px;color:#75d995}
+#gdp-aidat-sorgu .gdp-scan-bar{height:5px;margin-top:16px;background:#123d23;overflow:hidden;border-radius:8px}
+#gdp-aidat-sorgu .gdp-scan-bar i{display:block;width:40%;height:100%;background:#00ff66;box-shadow:0 0 12px #00ff66;animation:pwaScan 1.1s ease-in-out infinite alternate}
+@keyframes pwaScan{from{transform:translateX(0)}to{transform:translateX(150%)}}
+#pwa-install{display:none;position:fixed;z-index:99999;right:14px;bottom:max(14px,env(safe-area-inset-bottom));padding:12px 16px;border:1px solid #00ff66;border-radius:999px;background:#06351a;color:#e7ffef;font-weight:800;box-shadow:0 0 20px #00ff6640}
+@media(min-width:800px){#gdp-aidat-sorgu .gdp-form,#gdp-aidat-sorgu #gdp-sonuc{max-width:760px;width:100%;margin-left:auto!important;margin-right:auto!important}#gdp-aidat-sorgu .gdp-form{padding-left:40px!important;padding-right:40px!important}}
+@media(prefers-reduced-motion:reduce){#gdp-aidat-sorgu .gdp-scan-bar i{animation:none}}
+</style>
+
+<div id="gdp-aidat-sorgu">
+  <style>
+    #gdp-aidat-sorgu{font-family:Arial,Helvetica,sans-serif;max-width:560px;margin:18px auto;padding:0 12px;box-sizing:border-box;color:#18243a}
+    #gdp-aidat-sorgu *{box-sizing:border-box}
+    #gdp-aidat-sorgu .gdp-shell{overflow:hidden;border-radius:22px;background:#fff;box-shadow:0 12px 34px rgba(18,48,91,.13);border:1px solid #e6edf7}
+    #gdp-aidat-sorgu .gdp-head{padding:25px 20px 22px;text-align:center;color:#fff;background:linear-gradient(135deg,#0b3d91,#1767b2 58%,#25a6a1)}
+    #gdp-aidat-sorgu .gdp-emblem{width:58px;height:58px;margin:0 auto 10px;border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,.17);font-size:29px;border:1px solid rgba(255,255,255,.35)}
+    #gdp-aidat-sorgu .gdp-head h2{font-size:23px;margin:0 0 7px;font-weight:800;letter-spacing:.2px}
+    #gdp-aidat-sorgu .gdp-head p{font-size:13px;margin:0;color:#e5f2ff;line-height:1.5}
+    #gdp-aidat-sorgu .gdp-form{padding:20px}
+    #gdp-aidat-sorgu .gdp-label{display:block;font-weight:700;font-size:14px;margin:0 0 8px;color:#263b5b}
+    #gdp-aidat-sorgu #gdp-tc{width:100%;height:51px;border:1.5px solid #d5dfec;border-radius:12px;padding:0 14px;font-size:17px;letter-spacing:2px;outline:none;background:#f9fbfe;color:#172b49}
+    #gdp-aidat-sorgu #gdp-tc:focus{border-color:#1767b2;box-shadow:0 0 0 3px rgba(23,103,178,.12)}
+    #gdp-aidat-sorgu #gdp-sorgu-btn{width:100%;border:0;border-radius:12px;margin-top:12px;min-height:51px;background:linear-gradient(100deg,#0b3d91,#1767b2);color:#fff;font-size:15px;font-weight:800;cursor:pointer;box-shadow:0 6px 14px rgba(11,61,145,.2)}
+    #gdp-aidat-sorgu #gdp-sorgu-btn:disabled{opacity:.65;cursor:wait}
+    #gdp-aidat-sorgu #gdp-sonuc{margin:0 20px 20px;padding:0;min-height:0;overflow-wrap:anywhere}
+    #gdp-aidat-sorgu .gdp-empty{padding:15px;border-radius:12px;background:#f5f8fc;color:#63738b;text-align:center;font-size:13px;line-height:1.6}
+    #gdp-aidat-sorgu .gdp-member{font-size:17px;font-weight:800;color:#123f7d;margin:2px 0 13px;padding:13px 14px;border-radius:12px;background:#f0f6ff;border:1px solid #dceaff}
+    #gdp-aidat-sorgu .gdp-status{border-radius:14px;padding:17px 13px;text-align:center;margin:0 0 15px}
+    #gdp-aidat-sorgu .gdp-status.debt{background:#fff0ef;border:2px solid #f2aaa5;color:#a51f1b;animation:gdpPulse 1.15s ease-in-out infinite}
+    #gdp-aidat-sorgu .gdp-status.clear{background:#eaf8ef;border:2px solid #b7e5c5;color:#176b39}
+    #gdp-aidat-sorgu .gdp-status .gdp-status-title{font-size:clamp(20px,5.4vw,27px);font-weight:900;line-height:1.15;display:block}
+    #gdp-aidat-sorgu .gdp-status .gdp-status-sub{display:block;font-size:13px;font-weight:600;margin-top:7px;line-height:1.45}
+    #gdp-aidat-sorgu .gdp-status .gdp-debt-amount{display:block;font-size:clamp(24px,7vw,34px);font-weight:900;margin-top:8px}
+    @keyframes gdpPulse{0%,100%{box-shadow:0 0 0 rgba(220,38,38,0);transform:scale(1)}50%{box-shadow:0 0 17px rgba(220,38,38,.22);transform:scale(1.012)}}
+    #gdp-aidat-sorgu .gdp-section-title{font-size:15px;font-weight:800;color:#173f78;margin:18px 0 10px}
+    #gdp-aidat-sorgu .gdp-table-wrap{overflow-x:auto;border:1px solid #e7edf5;border-radius:12px}
+    #gdp-aidat-sorgu table{border-collapse:collapse;width:100%;min-width:420px;font-size:12px;text-align:left}
+    #gdp-aidat-sorgu th{background:#edf4fc;color:#29486e;font-weight:800}
+    #gdp-aidat-sorgu th,#gdp-aidat-sorgu td{padding:11px 9px;border-bottom:1px solid #edf0f5;white-space:nowrap}
+    #gdp-aidat-sorgu tbody tr:last-child td{border-bottom:0}
+    #gdp-aidat-sorgu .gdp-payments{display:grid;gap:9px}
+    #gdp-aidat-sorgu .gdp-payment{border:1px solid #e5ebf3;border-radius:12px;padding:12px;background:#fff}
+    #gdp-aidat-sorgu .gdp-payment-top{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;font-size:13px}
+    #gdp-aidat-sorgu .gdp-payment-amount{color:#16834a;font-weight:800}
+    #gdp-aidat-sorgu .gdp-muted{font-size:12px;color:#718096;margin-top:5px;line-height:1.5}
+    #gdp-aidat-sorgu .gdp-bank{margin-top:14px;padding:15px;border-radius:14px;background:linear-gradient(135deg,#f4f8ff,#eaf2ff);border:1px solid #cbdcf5}
+    #gdp-aidat-sorgu .gdp-bank-title{font-size:15px;font-weight:900;color:#123f7d;margin-bottom:10px}
+    #gdp-aidat-sorgu .gdp-bank-row{margin:8px 0;font-size:13px;line-height:1.5;color:#344761;overflow-wrap:anywhere}
+    #gdp-aidat-sorgu .gdp-iban{font-weight:900;font-size:14px;letter-spacing:.3px;color:#102f59;word-break:break-word}
+    #gdp-aidat-sorgu .gdp-copy{border:0;border-radius:9px;padding:9px 12px;background:#164f91;color:#fff;font-weight:800;font-size:12px;margin-top:7px;cursor:pointer}
+    #gdp-aidat-sorgu .gdp-total{background:#f2f6fc;border:1px solid #e0e9f5;border-radius:13px;padding:13px;margin-top:15px}
+    #gdp-aidat-sorgu .gdp-total-row{display:flex;justify-content:space-between;gap:10px;margin:7px 0;font-size:13px;align-items:center}
+    #gdp-aidat-sorgu .gdp-total-row strong:last-child{text-align:right}
+    #gdp-aidat-sorgu .gdp-foot{padding:0 20px 18px;text-align:center;color:#8793a4;font-size:10px;line-height:1.5}
+    #gdp-aidat-sorgu .gdp-error{padding:14px;border-radius:12px;background:#fff3f1;border:1px solid #ffd5d0;color:#a12622;font-size:13px}
+    @media(max-width:380px){#gdp-aidat-sorgu{padding:0 7px}#gdp-aidat-sorgu .gdp-form{padding:16px}#gdp-aidat-sorgu #gdp-sonuc{margin-left:16px;margin-right:16px}#gdp-aidat-sorgu .gdp-head h2{font-size:21px}}
+    @media(prefers-reduced-motion:reduce){#gdp-aidat-sorgu .gdp-status.debt{animation:none}}
+
+    /* MATRIX / GÜLPINAR özel görünüm */
+    #gdp-aidat-sorgu{max-width:720px;color:#d7ffe8;font-family:Arial,Helvetica,sans-serif}
+    #gdp-aidat-sorgu .gdp-shell{position:relative;background:#020906;border:1px solid #167a43;border-radius:18px;box-shadow:0 0 18px rgba(0,255,100,.18),0 0 55px rgba(0,255,100,.08);overflow:hidden}
+    #gdp-aidat-sorgu .gdp-head{position:relative;isolation:isolate;overflow:hidden;padding:34px 20px 30px;background:radial-gradient(ellipse at 50% 0%,#063d20 0%,#03170c 48%,#010604 100%);border-bottom:1px solid #0a7138}
+    #gdp-aidat-sorgu .gdp-head:before{content:"";position:absolute;inset:0;z-index:-1;opacity:.22;background:repeating-linear-gradient(0deg,transparent 0 5px,rgba(0,255,100,.16) 6px,transparent 7px),linear-gradient(90deg,transparent 49.7%,rgba(0,255,100,.22) 50%,transparent 50.3%)}
+    #gdp-aidat-sorgu .gdp-head:after{content:"";position:absolute;left:-20%;right:-20%;top:-40%;height:35%;background:linear-gradient(180deg,transparent,rgba(0,255,100,.18),transparent);animation:gdpScan 4s linear infinite;pointer-events:none}
+    #gdp-aidat-sorgu .gdp-emblem{width:76px;height:76px;border-radius:16px;margin:0 auto 17px;background:rgba(0,255,100,.08);border:1px solid #18b957;color:#7dffad;font-size:38px;box-shadow:0 0 22px rgba(0,255,100,.22);text-shadow:0 0 14px #00ff66}
+    #gdp-aidat-sorgu .gdp-head h2{font-size:clamp(27px,7vw,43px);font-weight:1000;letter-spacing:2px;line-height:1.05;text-transform:uppercase;color:#a6ffc4;text-shadow:0 0 8px #00ff66,0 0 25px rgba(0,255,100,.55);margin:0 0 13px}
+    #gdp-aidat-sorgu .gdp-head p{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:#61d98e;line-height:1.8}
+    #gdp-aidat-sorgu .gdp-matrix-label{display:block;margin-top:17px;color:#00ff66;font-size:11px;font-weight:900;letter-spacing:3px;text-shadow:0 0 9px rgba(0,255,100,.8)}
+    #gdp-aidat-sorgu .gdp-form{padding:24px;background:linear-gradient(180deg,#04140a,#020906)}
+    #gdp-aidat-sorgu .gdp-label{color:#72f5a0;font-size:13px;letter-spacing:2px;text-transform:uppercase}
+    #gdp-aidat-sorgu #gdp-tc{height:58px;border:1px solid #168a46;border-radius:8px;background:#010704;color:#b6ffcb;font-size:20px;letter-spacing:4px;box-shadow:inset 0 0 14px rgba(0,255,100,.08);font-family:monospace}
+    #gdp-aidat-sorgu #gdp-tc::placeholder{color:#397b51;font-size:12px;letter-spacing:1px}
+    #gdp-aidat-sorgu #gdp-tc:focus{border-color:#00ff66;box-shadow:0 0 0 2px rgba(0,255,100,.15),0 0 18px rgba(0,255,100,.16)}
+    #gdp-aidat-sorgu #gdp-sorgu-btn{min-height:58px;border:1px solid #00ff66;border-radius:8px;background:linear-gradient(90deg,#064d25,#087c38,#064d25);color:#d9ffe5;font-size:15px;letter-spacing:1.5px;text-shadow:0 0 8px #00ff66;box-shadow:0 0 18px rgba(0,255,100,.16);text-transform:uppercase}
+    #gdp-aidat-sorgu #gdp-sorgu-btn:active{transform:scale(.99)}
+    #gdp-aidat-sorgu #gdp-sonuc{margin:0 20px 20px;color:#d7ffe8}
+    #gdp-aidat-sorgu .gdp-empty{background:#04150b;border:1px solid #145d32;color:#7deba1;border-radius:8px}
+    #gdp-aidat-sorgu .gdp-error{background:#210807;border:1px solid #a52d25;color:#ffaaa2}
+    #gdp-aidat-sorgu .gdp-member{background:#041b0c;border:1px solid #168a46;color:#a6ffc4}
+    #gdp-aidat-sorgu .gdp-status.debt{background:#210907;border-color:#b6382f;color:#ffaaa2}
+    #gdp-aidat-sorgu .gdp-status.clear{background:#041b0c;border-color:#168a46;color:#a6ffc4}
+    #gdp-aidat-sorgu .gdp-section-title{color:#75f5a0;text-transform:uppercase;letter-spacing:1px}
+    #gdp-aidat-sorgu .gdp-table-wrap,#gdp-aidat-sorgu .gdp-payment,#gdp-aidat-sorgu .gdp-total{background:#04140a;border-color:#145d32;color:#caffd9}
+    #gdp-aidat-sorgu table{color:#caffd9}
+    #gdp-aidat-sorgu th{background:#0a2b15;color:#8effb0}
+    #gdp-aidat-sorgu th,#gdp-aidat-sorgu td{border-color:#123d23}
+    #gdp-aidat-sorgu .gdp-muted{color:#80b994}
+    #gdp-aidat-sorgu .gdp-bank{background:#041b0c;border-color:#168a46}
+    #gdp-aidat-sorgu .gdp-bank-title,#gdp-aidat-sorgu .gdp-iban{color:#a6ffc4}
+    #gdp-aidat-sorgu .gdp-bank-row{color:#caffd9}
+    #gdp-aidat-sorgu .gdp-copy{background:#087c38;color:#fff}
+    #gdp-aidat-sorgu .gdp-foot{color:#4d9b69;letter-spacing:.4px}
+    #gdp-aidat-sorgu .gdp-scan-status{padding:17px 12px;border:1px solid #168a46;border-radius:9px;background:#031309;color:#8effb0;font:700 12px/1.8 monospace;letter-spacing:1px;text-align:center}
+    #gdp-aidat-sorgu .gdp-scan-status strong{display:block;font-size:15px;color:#00ff66;letter-spacing:2px;text-shadow:0 0 9px #00ff66}
+    #gdp-aidat-sorgu .gdp-scan-bar{height:5px;margin:12px 4px 0;background:#10351c;overflow:hidden;border-radius:10px}
+    #gdp-aidat-sorgu .gdp-scan-bar i{display:block;width:35%;height:100%;background:#00ff66;box-shadow:0 0 12px #00ff66;animation:gdpLoad 1.2s ease-in-out infinite}
+    @keyframes gdpScan{0%{transform:translateY(0)}100%{transform:translateY(480%)}}
+    @keyframes gdpLoad{0%{transform:translateX(-110%)}100%{transform:translateX(310%)}}
+    @media(max-width:380px){#gdp-aidat-sorgu .gdp-head h2{font-size:26px;letter-spacing:1px}#gdp-aidat-sorgu .gdp-form{padding:17px}}
+    @media(prefers-reduced-motion:reduce){#gdp-aidat-sorgu .gdp-head:after,#gdp-aidat-sorgu .gdp-scan-bar i{animation:none}}
+
+
+    /* UYGULAMA GÖRÜNÜMÜ + OKUNABİLİR TİPOGRAFİ */
+    #gdp-aidat-sorgu{
+      width:100%;max-width:620px;margin:12px auto;padding:0 10px;
+      color:#e9f5ed;font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+      font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility
+    }
+    #gdp-aidat-sorgu .gdp-shell{
+      border-radius:25px;border:1px solid rgba(67,190,111,.42);
+      background:linear-gradient(180deg,#07130c 0%,#030a06 100%);
+      box-shadow:0 18px 55px rgba(0,0,0,.28),0 0 28px rgba(0,255,100,.09)
+    }
+    #gdp-aidat-sorgu .gdp-head{
+      padding:25px 20px 22px;
+      background:radial-gradient(ellipse at 50% 0%,#104426 0%,#092415 48%,#06130b 100%)
+    }
+    #gdp-aidat-sorgu .gdp-emblem{
+      width:64px;height:64px;border-radius:19px;margin-bottom:13px;font-size:31px
+    }
+    #gdp-aidat-sorgu .gdp-head h2{
+      font-family:inherit;font-size:clamp(25px,6vw,34px);font-weight:850;
+      letter-spacing:.3px;line-height:1.14;text-transform:none;color:#e6ffed;
+      text-shadow:0 0 14px rgba(0,255,102,.25);margin-bottom:10px
+    }
+    #gdp-aidat-sorgu .gdp-head p{
+      font-family:inherit;font-size:13px;letter-spacing:.35px;text-transform:none;
+      color:#b6d9c1;line-height:1.65;font-weight:500
+    }
+    #gdp-aidat-sorgu .gdp-matrix-label{
+      display:inline-flex;align-items:center;gap:7px;margin-top:14px;padding:7px 11px;
+      border:1px solid rgba(70,220,123,.28);border-radius:30px;background:rgba(0,0,0,.2);
+      color:#9cf5b5;font-family:inherit;font-size:11px;letter-spacing:.5px;font-weight:750;text-shadow:none
+    }
+    #gdp-aidat-sorgu .gdp-form{
+      margin:15px 15px 17px;padding:20px;border:1px solid #1b5130;border-radius:19px;
+      background:linear-gradient(145deg,rgba(13,42,24,.96),rgba(5,19,10,.98));
+      box-shadow:inset 0 1px rgba(255,255,255,.035)
+    }
+    #gdp-aidat-sorgu .gdp-label{
+      color:#d7f3df;font-family:inherit;font-size:14px;font-weight:750;
+      letter-spacing:0;text-transform:none;margin-bottom:9px
+    }
+    #gdp-aidat-sorgu #gdp-tc{
+      height:58px;border:1px solid #397b50;border-radius:13px;background:#020a05;
+      color:#f1fff4;font-family:inherit;font-size:19px;font-weight:650;letter-spacing:2px;
+      padding:0 16px;box-shadow:inset 0 2px 8px rgba(0,0,0,.25)
+    }
+    #gdp-aidat-sorgu #gdp-tc::placeholder{font-family:inherit;font-size:13px;letter-spacing:0;color:#83a891}
+    #gdp-aidat-sorgu #gdp-tc:focus{border-color:#5bea87;box-shadow:0 0 0 3px rgba(67,220,113,.15)}
+    #gdp-aidat-sorgu #gdp-sorgu-btn{
+      min-height:57px;border:1px solid #45d978;border-radius:13px;margin-top:13px;
+      background:linear-gradient(100deg,#087b36,#0b9b46);color:#fff;
+      font-family:inherit;font-size:15px;font-weight:800;letter-spacing:.1px;text-shadow:none;
+      box-shadow:0 7px 18px rgba(0,150,60,.22);transition:filter .18s,transform .18s
+    }
+    #gdp-aidat-sorgu #gdp-sorgu-btn:active{transform:scale(.985);filter:brightness(1.12)}
+    #gdp-aidat-sorgu #gdp-sonuc{margin:0 15px 17px;color:#e8f5eb;font-family:inherit;font-size:15px;line-height:1.6}
+    #gdp-aidat-sorgu .gdp-empty,#gdp-aidat-sorgu .gdp-error{
+      padding:16px;border-radius:14px;font-family:inherit;font-size:14px;line-height:1.65;letter-spacing:0
+    }
+    #gdp-aidat-sorgu .gdp-empty{background:#0a1c10;border:1px solid #244d31;color:#c2dfca}
+    #gdp-aidat-sorgu .gdp-error{background:#2a100e;border:1px solid #a94a40;color:#ffd2cd}
+    #gdp-aidat-sorgu .gdp-member{
+      padding:15px 16px;border-radius:14px;background:#0b2413;border:1px solid #2d7142;
+      color:#e1ffea;font-family:inherit;font-size:17px;font-weight:800;line-height:1.4
+    }
+    #gdp-aidat-sorgu .gdp-status{padding:19px 15px;border-radius:16px}
+    #gdp-aidat-sorgu .gdp-status.debt{background:#2b100e;border-color:#a94a40;color:#ffd4ce}
+    #gdp-aidat-sorgu .gdp-status.clear{background:#0b2815;border-color:#328451;color:#d7ffe2}
+    #gdp-aidat-sorgu .gdp-status .gdp-status-title{font-family:inherit;font-size:clamp(21px,5vw,26px);letter-spacing:0;line-height:1.25}
+    #gdp-aidat-sorgu .gdp-status .gdp-status-sub{font-family:inherit;font-size:14px;font-weight:550;line-height:1.6;letter-spacing:0}
+    #gdp-aidat-sorgu .gdp-status .gdp-debt-amount{font-family:inherit;font-size:clamp(27px,7vw,35px);letter-spacing:0}
+    #gdp-aidat-sorgu .gdp-section-title{font-family:inherit;color:#c8f4d3;font-size:16px;font-weight:800;letter-spacing:0;text-transform:none;margin:21px 0 11px}
+    #gdp-aidat-sorgu .gdp-table-wrap{border-color:#28563a;border-radius:13px;background:#08170d}
+    #gdp-aidat-sorgu table{width:100%;min-width:0;font-family:inherit;font-size:13px;color:#e5f5e9;line-height:1.5}
+    #gdp-aidat-sorgu th{background:#12351e;color:#d4f8de;font-size:12px;font-weight:800}
+    #gdp-aidat-sorgu th,#gdp-aidat-sorgu td{padding:11px 8px;border-color:#1b3b27;white-space:normal}
+    #gdp-aidat-sorgu td{color:#e4f3e8}
+    #gdp-aidat-sorgu td[style]{color:#9cf3b2!important}
+    #gdp-aidat-sorgu .gdp-payment div[style]{color:#d7e9dc!important}
+    #gdp-aidat-sorgu .gdp-payments{gap:10px}
+    #gdp-aidat-sorgu .gdp-payment{padding:14px;border-radius:14px;background:#0a1b10;border-color:#28563a;color:#e8f5eb}
+    #gdp-aidat-sorgu .gdp-payment-top{font-family:inherit;font-size:14px;line-height:1.5}
+    #gdp-aidat-sorgu .gdp-payment-amount{color:#8df2aa!important;font-size:15px}
+    #gdp-aidat-sorgu .gdp-muted{font-family:inherit;font-size:13px;color:#b2cdb9;line-height:1.55}
+    #gdp-aidat-sorgu .gdp-bank{padding:16px;border-radius:15px;background:#0b2413;border-color:#34734a}
+    #gdp-aidat-sorgu .gdp-bank-title{font-family:inherit;color:#d8ffe2;font-size:16px}
+    #gdp-aidat-sorgu .gdp-bank-row{font-family:inherit;color:#e2f3e6;font-size:14px;line-height:1.65}
+    #gdp-aidat-sorgu .gdp-iban{font-family:inherit;color:#e2ffe9;font-size:15px;letter-spacing:.5px}
+    #gdp-aidat-sorgu .gdp-copy{min-height:42px;padding:10px 14px;border-radius:11px;background:#0b9140;font-family:inherit;font-size:13px}
+    #gdp-aidat-sorgu .gdp-total{padding:15px;border-radius:14px;background:#0b1e11;border-color:#28563a}
+    #gdp-aidat-sorgu .gdp-total-row{font-family:inherit;font-size:14px;line-height:1.5;color:#dcefe1}
+    #gdp-aidat-sorgu .gdp-total-row strong:last-child{color:#9cf3b2!important;font-size:15px}
+    #gdp-aidat-sorgu .gdp-foot{padding:0 18px 19px;color:#a3c3ac;font-family:inherit;font-size:11px;line-height:1.6;letter-spacing:0}
+    #gdp-aidat-sorgu .gdp-scan-status{padding:18px 14px;border-radius:14px;background:#071a0d;color:#c6ebd0;font-family:inherit;font-size:13px;line-height:1.7;letter-spacing:.2px}
+    #gdp-aidat-sorgu .gdp-scan-status strong{font-family:inherit;font-size:16px;letter-spacing:.5px;line-height:1.4}
+    #gdp-aidat-sorgu .gdp-scan-bar{height:6px;border-radius:20px}
+    @media(max-width:480px){
+      #gdp-aidat-sorgu{max-width:100%;margin:0 auto;padding:0}
+      #gdp-aidat-sorgu .gdp-shell{border-radius:0;border-left:0;border-right:0;min-height:calc(100svh - 12px)}
+      #gdp-aidat-sorgu .gdp-head{padding:24px 17px 20px}
+      #gdp-aidat-sorgu .gdp-form{margin:13px 12px 15px;padding:17px}
+      #gdp-aidat-sorgu #gdp-sonuc{margin:0 12px 16px}
+      #gdp-aidat-sorgu .gdp-table-wrap{overflow-x:auto}
+      #gdp-aidat-sorgu table{font-size:12px}
+      #gdp-aidat-sorgu th,#gdp-aidat-sorgu td{padding:10px 6px}
+    }
+    @media(min-width:481px){#gdp-aidat-sorgu .gdp-shell{margin:10px 0}}
+    @media(prefers-reduced-motion:reduce){#gdp-aidat-sorgu .gdp-head:after,#gdp-aidat-sorgu .gdp-scan-bar i,#gdp-aidat-sorgu .gdp-status.debt{animation:none}}
+
+  </style>
+  <div class="gdp-shell">
+    <div class="gdp-head">
+      <div class="gdp-emblem">📋</div>
+      <h2>GÜLPINAR<br>AİDAT SORGULAMA</h2>
+      <p>GÜVENLİ ÜYE ERİŞİM SİSTEMİ<br>GÜLPINAR KÜLTÜR DAYANIŞMA VE YARDIMLAŞMA DERNEĞİ</p><span class="gdp-matrix-label">● SİSTEM ÇEVRİMİÇİ / GÜVENLİ BAĞLANTI</span>
+    </div>
+    <div class="gdp-form">
+      <label class="gdp-label" for="gdp-tc">T.C. KİMLİK NUMARANIZ</label>
+      <input id="gdp-tc" type="text" inputmode="numeric" autocomplete="off" maxlength="11" placeholder="11 HANELİ KİMLİK NUMARANIZI GİRİN">
+      <button id="gdp-sorgu-btn" type="button">🔎 &nbsp; AİDAT BİLGİLERİMİ GÖSTER</button>
+    </div>
+    <div id="gdp-sonuc" aria-live="polite"><div class="gdp-empty">Aidat bilgilerinizi görüntülemek için T.C. kimlik numaranızı giriniz.</div></div>
+    <div class="gdp-foot">Kişisel bilgileriniz yalnızca aidat sorgulama amacıyla görüntülenir. Güvenliğiniz için ortak cihazlarda sorgulama sonrası sayfayı kapatınız.</div>
+  </div>
+</div>
+<script>
+(function(){
+  const API_URL = "https://script.google.com/macros/s/AKfycbweW-JMlD-we3HiE6JBqQdKTHPN0c6dCQz6DLfapQLV6CnCZKfn7AScs1N6KSzowBOjHw/exec";
+  const ACCOUNT_NAME = "Gülpınar Kültür Dayanışma ve Yardımlaşma Derneği";
+  const IBAN = "TR790001002310976690835001";
+  const root=document.getElementById("gdp-aidat-sorgu");
+  if(!root)return;
+  const tcInput=root.querySelector("#gdp-tc"),button=root.querySelector("#gdp-sorgu-btn"),result=root.querySelector("#gdp-sonuc");
+  tcInput.addEventListener("input",function(){this.value=this.value.replace(/\D/g,"").slice(0,11);});
+  function money(v){return Number(v||0).toLocaleString("tr-TR",{minimumFractionDigits:2,maximumFractionDigits:2})+" ₺";}
+  function isValidTc(tc){
+    if(!/^\d{11}$/.test(tc) || tc.charAt(0)==="0" || /^([0-9])\1{10}$/.test(tc)) return false;
+    const d=tc.split("").map(Number);
+    const odd=d[0]+d[2]+d[4]+d[6]+d[8];
+    const even=d[1]+d[3]+d[5]+d[7];
+    const tenth=((odd*7)-even)%10;
+    const eleventh=d.slice(0,10).reduce((a,b)=>a+b,0)%10;
+    return tenth===d[9] && eleventh===d[10];
+  }
+  function bankBlock(){
+    const accountReady=ACCOUNT_NAME && ACCOUNT_NAME!=="HESAP ADI BURAYA";
+    const ibanReady=IBAN && IBAN!=="IBAN BURAYA";
+    if(!accountReady && !ibanReady) return '<div class="gdp-bank"><div class="gdp-bank-title">🏦 Aidat Ödeme Bilgileri</div><div class="gdp-bank-row">Banka hesap adı ve IBAN bilgisi dernek yönetimi tarafından eklenecektir.</div></div>';
+    return '<div class="gdp-bank"><div class="gdp-bank-title">🏦 Aidat Ödeme Bilgileri</div>'+
+      (accountReady?'<div class="gdp-bank-row"><b>Hesap adı:</b><br>'+escapeHtml(ACCOUNT_NAME)+'</div>':'')+
+      (ibanReady?'<div class="gdp-bank-row"><b>IBAN:</b><br><span class="gdp-iban" id="gdp-iban-value">'+escapeHtml(IBAN.replace(/(.{4})/g, '$1 ').trim())+'</span><br><button class="gdp-copy" type="button" id="gdp-copy-iban">📋 IBAN’ı Kopyala</button></div>':'')+
+      '<div class="gdp-muted">Ödeme açıklamasına adınızı soyadınızı ve aidat yılını yazmayı unutmayınız.</div></div>';
+  }
+  function wireCopy(){
+    const copyBtn=root.querySelector("#gdp-copy-iban");
+    if(copyBtn) copyBtn.addEventListener("click",function(){
+      const value=IBAN;
+      if(navigator.clipboard && navigator.clipboard.writeText){
+        navigator.clipboard.writeText(value).then(()=>{copyBtn.textContent="✓ IBAN Kopyalandı";}).catch(()=>{copyBtn.textContent="IBAN kopyalanamadı";});
+      }else{copyBtn.textContent="IBAN: "+value;}
+    });
+  }
+  function escapeHtml(v){return String(v==null?"":v).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];});}
+  function showError(msg){result.innerHTML='<div class="gdp-error">⚠️ '+escapeHtml(msg)+'</div>';}
+  function renderResult(data){
+    if(!data||data.ok!==true){showError(data&&(data.message||data.error)||"Sorgulama yapılamadı. Lütfen tekrar deneyiniz.");return;}
+    const member=data.uye||{};
+    const memberName=member.AD||member.AD_SOYAD||member.AD_SOYAD_TEMSILCI||member.adSoyad||"Değerli Üyemiz";
+    const years=Array.isArray(data.ozet)?data.ozet:[];
+    const payments=Array.isArray(data.odemeler)?data.odemeler:[];
+    const total=data.toplam||{};
+    const balance=Number(total.KALAN||0);
+    let html='<div class="gdp-member">👤 '+escapeHtml(memberName)+'</div>';
+    if(balance>0){
+      html+='<div class="gdp-status debt"><span class="gdp-status-title">⚠️ BORCUNUZ VARDIR</span><span class="gdp-status-sub">Derneğimizin faaliyetlerine katkınız için aidat ödemenizi rica ederiz.</span><span class="gdp-debt-amount">'+money(balance)+'</span><span class="gdp-status-sub">Ödenmemiş toplam aidat bakiyeniz</span></div>';
+      html+=bankBlock();
+    }else{
+      html+='<div class="gdp-status clear"><span class="gdp-status-title">🌿 TEŞEKKÜR EDERİZ!</span><span class="gdp-status-sub">Aidat borcunuz bulunmamaktadır. Dayanışmamıza verdiğiniz destek için teşekkür ederiz. ❤️</span></div>';
+    }
+    html+='<div class="gdp-section-title">📅 Yıllara Göre Aidat Durumu</div>';
+    if(years.length){
+      html+='<div class="gdp-table-wrap"><table><thead><tr><th>Yıl</th><th>Aidat</th><th>Ödenen</th><th>Kalan</th></tr></thead><tbody>';
+      years.forEach(function(item){
+        const remain=Number(item.KALAN||0);
+        html+='<tr><td><b>'+escapeHtml(item.YIL)+'</b></td><td>'+money(item.YILLIK_TUTAR)+'</td><td style="color:#16834a">'+money(item.TAHSILAT)+'</td><td style="font-weight:800;color:'+(remain>0?'#bd3028':'#16834a')+'">'+money(remain)+'</td></tr>';
+      });
+      html+='</tbody></table></div>';
+    }else{
+      html+='<div class="gdp-empty">Aidat dönemi kaydı bulunamadı. Bilgi için dernek yönetimiyle iletişime geçebilirsiniz.</div>';
+    }
+    html+='<div class="gdp-section-title">🧾 Ödeme Geçmişi</div>';
+    if(payments.length){
+      html+='<div class="gdp-payments">';
+      payments.forEach(function(p){
+        html+='<div class="gdp-payment"><div class="gdp-payment-top"><b>📆 '+escapeHtml(p.TARIH||"Tarih belirtilmemiş")+'</b><b class="gdp-payment-amount">'+money(p.TUTAR)+'</b></div><div class="gdp-muted">Aidat yılı: '+escapeHtml(p.YIL||"Belirtilmemiş")+'</div>';
+        if(p.ACIKLAMA)html+='<div style="font-size:13px;margin-top:7px;color:#43536a">'+escapeHtml(p.ACIKLAMA)+'</div>';
+        html+='</div>';
+      });
+      html+='</div>';
+    }else html+='<div class="gdp-empty">Henüz kayıtlı tahsilat hareketi bulunmuyor.</div>';
+    html+='<div class="gdp-total"><div class="gdp-total-row"><strong>Toplam ödenen</strong><strong style="color:#16834a">'+money(total.TAHSILAT)+'</strong></div><div class="gdp-total-row"><strong>Toplam kalan borç</strong><strong style="color:'+(balance>0?'#bd3028':'#16834a')+'">'+money(balance)+'</strong></div></div>';
+    result.innerHTML=html;
+    wireCopy();
+  }
+  let statusTimer=null;
+  button.addEventListener("click",async function(){
+    const tc=tcInput.value.trim();
+    if(!isValidTc(tc)){showError("Girdiğiniz T.C. kimlik numarası kontrol edilemedi. 11 haneyi ve kimlik numarası doğrulama rakamlarını kontrol ediniz.");tcInput.focus();return;}
+    button.disabled=true;button.textContent="⏳ SORGULANIYOR...";
+    result.innerHTML='<div class="gdp-scan-status"><strong id="gdp-scan-message">SİSTEME BAĞLANILIYOR...</strong><span>YETKİSİZ ERİŞİM KONTROLÜ YAPILIYOR</span><div class="gdp-scan-bar"><i></i></div></div>';
+    const scanMessages=["SİSTEME BAĞLANILIYOR...","ÜYE KAYDI KONTROL EDİLİYOR...","KİMLİK BİLGİLERİ DOĞRULANIYOR...","AİDAT KAYITLARI TARAMA ALTINDA...","GÜVENLİ VERİ KANALI AÇILIYOR..."];
+    let scanIndex=0;
+    if(statusTimer)clearInterval(statusTimer);
+    statusTimer=setInterval(function(){
+      const scanMessage=root.querySelector("#gdp-scan-message");
+      if(scanMessage){scanIndex=(scanIndex+1)%scanMessages.length;scanMessage.textContent=scanMessages[scanIndex];}
+    },850);
+    try{
+      const response=await fetch(API_URL,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({action:"publicAidatSorgula",payload:{tc:tc}})});
+      if(!response.ok)throw new Error("HTTP "+response.status);
+      const data=await response.json();renderResult(data);
+    }catch(err){showError("Sunucuya ulaşılamadı. Biraz sonra tekrar deneyiniz.");}
+    finally{if(statusTimer)clearInterval(statusTimer);button.disabled=false;button.textContent="🔎  AİDAT BİLGİLERİMİ GÖSTER";tcInput.value="";}
+  });
+})();
+</script>
+
+<button id="pwa-install" type="button">UYGULAMAYI YÜKLE</button>
+<script>
+(function(){
+  if('serviceWorker' in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('./sw.js').catch(function(e){console.warn('PWA kaydı yapılamadı',e);});});}
+  var installBtn=document.getElementById('pwa-install'),deferredPrompt=null;
+  window.addEventListener('beforeinstallprompt',function(e){e.preventDefault();deferredPrompt=e;if(installBtn)installBtn.style.display='block';});
+  if(installBtn){installBtn.addEventListener('click',async function(){if(!deferredPrompt){alert('iPhone kullanıyorsanız Safari paylaş menüsünden “Ana Ekrana Ekle” seçeneğini kullanın.');return;}deferredPrompt.prompt();await deferredPrompt.userChoice;deferredPrompt=null;installBtn.style.display='none';});}
+  window.addEventListener('appinstalled',function(){if(installBtn)installBtn.style.display='none';});
+})();
+</script>
+
+</body></html>
