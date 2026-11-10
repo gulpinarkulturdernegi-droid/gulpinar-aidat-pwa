@@ -339,7 +339,15 @@ body #gdp-aidat-sorgu{position:relative!important;width:100%!important;max-width
       html+='</div>';
     }else html+='<div class="gdp-empty">Henüz kayıtlı tahsilat hareketi bulunmuyor.</div>';
     html+='<div class="gdp-total"><div class="gdp-total-row"><strong>Toplam ödenen</strong><strong style="color:#16834a">'+money(total.TAHSILAT)+'</strong></div><div class="gdp-total-row"><strong>Toplam kalan borç</strong><strong style="color:'+(balance>0?'#bd3028':'#16834a')+'">'+money(balance)+'</strong></div></div>';
+    html+='<button id="gdp-close-result" type="button" style="display:block;width:100%;margin:16px 0 4px;padding:14px 18px;border:1px solid #cbd5e1;border-radius:12px;background:#f1f5f9;color:#243247;font-size:14px;font-weight:800;cursor:pointer">✕ KAPAT / SORGU EKRANINA DÖN</button>';
     result.innerHTML=html;
+    const closeResult=root.querySelector('#gdp-close-result');
+    if(closeResult)closeResult.addEventListener('click',function(){
+      result.innerHTML='<div class="gdp-empty">Aidat bilgilerinizi görüntülemek için T.C. kimlik numaranızı giriniz.</div>';
+      tcInput.value='';
+      tcInput.focus();
+      root.scrollIntoView({behavior:'smooth',block:'start'});
+    });
     wireCopy();
   }
   let statusTimer=null;
