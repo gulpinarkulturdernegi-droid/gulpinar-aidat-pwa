@@ -2,7 +2,7 @@
  * Tam TCKN sorgu tablosuna yazılmaz.
  */
 
-const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx1mNJ2FOlPgpdNIqfxhZoOl2jbRfkz9f621rnYTXmlncexmm7GGD2eu6ESLxmKlISGAQ/exec';
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyQSMEa5aoGgNdJhh3Qt9j9vfgWcysBkH3pbOL31ptb0XFtGuBG7tdmPqHpNXtHEzlNuw/exec';
 
 const $ = (id) => document.getElementById(id);
 const form = $('queryForm');
