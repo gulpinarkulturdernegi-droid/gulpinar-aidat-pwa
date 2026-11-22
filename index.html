@@ -7,7 +7,8 @@
   <meta name="description" content="Gülpınar Derneği üye aidat sorgulama ekranı">
   <title>Gülpınar Derneği | Aidat Sorgulama</title>
   <link rel="icon" href="https://gulpinar-dernek.web.app/gulpinar-logo.png">
-  <link rel="stylesheet" href="./styles.css">\n  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="stylesheet" href="./styles.css">
+  <link rel="manifest" href="./manifest.webmanifest">
 </head>
 <body>
   <main class="page">
@@ -43,6 +44,13 @@
     <p class="bottom-note">Sorun yaşamanız durumunda dernek yönetimiyle iletişime geçebilirsiniz.</p>
   </main>
   <iframe id="apiFrame" name="apiFrame" title="Güvenli sorgulama bağlantısı" hidden></iframe>
-  <script src="./app.js"></script>\n  <script>if ("serviceWorker" in navigator) window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js").catch(()=>{}));</script>
+  <script src="./app.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js').catch(() => {});
+      });
+    }
+  </script>
 </body>
 </html>
