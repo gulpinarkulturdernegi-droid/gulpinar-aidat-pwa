@@ -80,12 +80,12 @@ function sendRequest(tc) {
     }
 
     function handler(event) {
-      // Mesaj yalnızca bu isteğin hedef iframe'inden ve beklenen Google Apps Script
-      // alan adlarından gelmeli. Rastgele callback kimliği de eşleştirilir.
+      // Apps Script çıktısı iç içe iframe'de çalıştığı için event.source,
+      // apiFrame.contentWindow ile eşleşmez. Origin + rastgele cb kimliği doğrulanır.
       const trustedOrigin = event.origin === 'https://script.google.com' ||
         event.origin === 'https://script.googleusercontent.com' ||
         event.origin.endsWith('.googleusercontent.com');
-      if (event.source !== frame.contentWindow || !trustedOrigin) return;
+      if (!trustedOrigin) return;
       const d = event.data;
       if (!d || d.gdpPost !== cb || cb !== activeRequest) return;
       cleanup();
