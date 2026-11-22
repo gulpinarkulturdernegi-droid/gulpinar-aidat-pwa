@@ -1,5 +1,5 @@
 /* Gülpınar Derneği - bağımsız aidat sorgulama arayüzü
- * Apps Script URL'si tanımlanmıştır. Tam TCKN sorgu tablosuna yazılmaz.
+ * Tam TCKN sorgu tablosuna yazılmaz.
  */
 
 const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx1mNJ2FOlPgpdNIqfxhZoOl2jbRfkz9f621rnYTXmlncexmm7GGD2eu6ESLxmKlISGAQ/exec';
@@ -9,9 +9,6 @@ const form = $('queryForm');
 const button = $('submitBtn');
 const message = $('message');
 const result = $('result');
-const frame = $('apiFrame');
-
-let activeRequest = '';
 
 function validTCKN(value) {
   const s = String(value || '').replace(/\D/g, '');
@@ -47,60 +44,41 @@ function setMessage(text, type = '') {
   message.className = 'message' + (type ? ' ' + type : '');
 }
 
-function sendRequest(tc) {
-  return new Promise((resolve, reject) => {
-    if (!APPS_SCRIPT_URL || !APPS_SCRIPT_URL.startsWith('https://script.google.com/macros/s/')) {
-      reject(new Error('Kurulum eksik: app.js dosyasındaki Apps Script Web App URL bilgisini kontrol edin.'));
-      return;
+async function sendRequest(tc) {
+  if (!APPS_SCRIPT_URL || !APPS_SCRIPT_URL.startsWith('https://script.google.com/macros/s/')) {
+    throw new Error('Kurulum eksik: app.js dosyasındaki Apps Script Web App URL bilgisini kontrol edin.');
+  }
+  const payload = JSON.stringify({ action: 'publicAidatSorgula', payload: { tc } });
+  const ctrl = new AbortController();
+  const timer = setTimeout(() => ctrl.abort(), 30000);
+  try {
+    // Content-Type başlığı eklenmez (text/plain): CORS ön kontrolü oluşmaz.
+    const res = await fetch(APPS_SCRIPT_URL, {
+      method: 'POST',
+      body: payload,
+      redirect: 'follow',
+      signal: ctrl.signal
+    });
+    const text = await res.text();
+    let d;
+    try {
+      d = JSON.parse(text);
+    } catch (_) {
+      throw new Error('Sunucudan geçersiz yanıt alındı. Web uygulaması erişiminin "Herkes" olduğunu kontrol edin.');
     }
-
-    const cb = 'aidatQuery' + Date.now() + Math.random().toString(36).slice(2, 8);
-    activeRequest = cb;
-    const payload = JSON.stringify({ action: 'publicAidatSorgula', payload: { tc } });
-    const f = document.createElement('form');
-    f.method = 'POST';
-    f.action = APPS_SCRIPT_URL + '?cb=' + encodeURIComponent(cb);
-    f.target = 'apiFrame';
-    f.style.display = 'none';
-    const data = document.createElement('textarea');
-    data.name = 'data';
-    data.value = payload;
-    f.appendChild(data);
-    document.body.appendChild(f);
-
-    const timeout = setTimeout(() => {
-      cleanup();
-      reject(new Error('Sunucudan yanıt alınamadı. Biraz sonra tekrar deneyin.'));
-    }, 25000);
-
-    function cleanup() {
-      clearTimeout(timeout);
-      window.removeEventListener('message', handler);
-      f.remove();
-    }
-
-    function handler(event) {
-      // Apps Script çıktısı iç içe iframe'de çalıştığı için event.source,
-      // apiFrame.contentWindow ile eşleşmez. Origin + rastgele cb kimliği doğrulanır.
-      const trustedOrigin = event.origin === 'https://script.google.com' ||
-        event.origin === 'https://script.googleusercontent.com' ||
-        event.origin.endsWith('.googleusercontent.com');
-      if (!trustedOrigin) return;
-      const d = event.data;
-      if (!d || d.gdpPost !== cb || cb !== activeRequest) return;
-      cleanup();
-      if (d.result && d.result.ok) resolve(d.result);
-      else reject(new Error((d.result && d.result.message) || 'Sorgulama başarısız.'));
-    }
-
-    window.addEventListener('message', handler);
-    f.submit();
-  });
+    if (d && d.ok) return d;
+    throw new Error((d && d.message) || 'Sorgulama başarısız.');
+  } catch (e) {
+    if (e.name === 'AbortError') throw new Error('Sunucudan yanıt alınamadı. Biraz sonra tekrar deneyin.');
+    if (e instanceof TypeError) throw new Error('Sunucuya ulaşılamadı. İnternet bağlantınızı veya dağıtım ayarlarını kontrol edin.');
+    throw e;
+  } finally {
+    clearTimeout(timer);
+  }
 }
 
 function renderResult(data) {
   const u = data.uye || {};
-  // API'nin mevcut sözleşmesi: ozet yıllık satırları, toplam ise genel toplamları taşır.
   const rows = data.yillar || data.ozet || [];
   const totals = data.toplam || {};
   const totalDue = totals.TAHAKKUK != null
