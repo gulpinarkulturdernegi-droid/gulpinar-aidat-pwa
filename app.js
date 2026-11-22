@@ -1,7 +1,7 @@
 /* Gülpınar Derneği - bağımsız aidat sorgulama arayüzü
  * Apps Script URL'sini aşağıdaki sabite girin. Tam TCKN sorgu tablosuna yazılmaz.
  */
-const APPS_SCRIPT_URL = 'APPS_SCRIPT_WEB_APP_URL_BURAYA';
+const APPS_SCRIPT_URL = 'const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyihNg84thrjxsH53Uc-iAUg5njSG5hUL1lgIqh4ciaSdRtgDHgIMrfBwLJVEPEB1Wf2g/exec';';
 const $ = (id) => document.getElementById(id);
 const form = $('queryForm');
 const button = $('submitBtn');
