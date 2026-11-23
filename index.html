@@ -2,54 +2,74 @@
 <html lang="tr">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="theme-color" content="#eef3f8">
-  <meta name="description" content="Gülpınar Derneği üye aidat sorgulama ekranı">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#123d32">
+  <meta name="description" content="Gülpınar Derneği güvenli aidat sorgulama sistemi">
   <title>Gülpınar Derneği | Aidat Sorgulama</title>
-  <link rel="icon" href="https://gulpinar-dernek.web.app/gulpinar-logo.png">
-  <link rel="stylesheet" href="./styles.css">
+  <link rel="icon" href="./gulpinar-logo.png">
+  <link rel="stylesheet" href="./styles.css?v=6">
   <link rel="manifest" href="./manifest.webmanifest">
 </head>
 <body>
-  <main class="page">
-    <section class="card" aria-labelledby="pageTitle">
-      <header class="brand">
-        <div class="logo"><img src="https://gulpinar-dernek.web.app/gulpinar-logo.png" alt="Gülpınar Derneği logosu"></div>
-        <div>
-          <p class="eyebrow">GÜLPINAR KÜLTÜR DAYANIŞMA VE YARDIMLAŞMA DERNEĞİ</p>
-          <h1 id="pageTitle">Aidat Sorgulama</h1>
-          <p class="subtitle">Üyelik aidat bilgilerinizi güvenli şekilde görüntüleyin.</p>
-        </div>
-      </header>
+  <div class="loading-screen" id="loadingScreen" aria-hidden="true">
+    <div class="loading-mark"><img src="./gulpinar-logo.png" alt=""></div>
+    <div class="loading-brand">GÜLPINAR DERNEĞİ</div>
+    <div class="loading-title">Aidat sistemine bağlanıyorsunuz</div>
+    <div class="loading-sub" id="loadingText">Güvenli bağlantı hazırlanıyor…</div>
+    <div class="loading-track"><span></span></div>
+    <div class="loading-foot">Birlikte daha güçlüyüz</div>
+  </div>
 
+  <main class="page">
+    <header class="topbar">
+      <div class="brand-mark"><img src="./gulpinar-logo.png" alt="Gülpınar Derneği logosu"></div>
+      <div class="brand-copy">
+        <div class="eyebrow">GÜLPINAR KÜLTÜR DAYANIŞMA VE YARDIMLAŞMA DERNEĞİ</div>
+        <div class="brand-name">Gülpınar Derneği</div>
+        <div class="brand-caption">Bilgi ve Dayanışma Sistemi</div>
+      </div>
+      <span class="secure"><span></span> Güvenli Sorgulama</span>
+    </header>
+
+    <section class="hero">
+      <div class="hero-copy">
+        <div class="hero-kicker">ÜYELİK BİLGİLERİ</div>
+        <h1>Aidatınızı kolayca<br><em>sorgulayın.</em></h1>
+        <p>Üyelik aidat durumunuzu güvenli şekilde görüntüleyin. Birkaç saniye içinde güncel bilgilerinize ulaşın.</p>
+      </div>
+      <div class="hero-symbol" aria-hidden="true">G</div>
+    </section>
+
+    <section class="support-note">
+      <div class="support-icon">♥</div>
+      <div><strong>Derneğimiz dayanışmanızla ayakta.</strong><p>Bağışlarınız ve katkılarınız; kültürümüzü, dayanışmamızı ve ortak geleceğimizi yaşatmamıza destek oluyor. İlginiz ve desteğiniz için teşekkür ederiz.</p></div>
+    </section>
+
+    <section class="query-card" aria-labelledby="pageTitle">
+      <div class="section-heading">
+        <div><span class="step">01 / SORGULAMA</span><h2 id="pageTitle">Aidat bilgilerinizi görüntüleyin</h2></div>
+        <span class="lock-icon">▣</span>
+      </div>
       <form id="queryForm" novalidate>
-        <label for="tc">T.C. Kimlik Numarası</label>
+        <label for="tc">T.C. Kimlik Numaranız</label>
         <div class="field-wrap">
-          <input id="tc" name="tc" type="text" inputmode="numeric" autocomplete="off"
-                 maxlength="11" minlength="11" placeholder="11 haneli kimlik numaranız"
-                 aria-describedby="privacyNote" required>
-          <span class="field-icon" aria-hidden="true">▤</span>
+          <input id="tc" name="tc" type="text" inputmode="numeric" autocomplete="off" maxlength="11" minlength="11" placeholder="11 haneli T.C. kimlik numaranız" aria-describedby="privacyNote" required>
+          <span class="field-icon" aria-hidden="true">⌕</span>
         </div>
-        <p class="privacy" id="privacyNote">Kimlik numaranız yalnızca üyelik kaydınızı bulmak için kullanılır. Sorgulama kayıtlarında tam kimlik numaranız saklanmaz.</p>
-        <button id="submitBtn" type="submit"><span>Sorgula</span><span aria-hidden="true">→</span></button>
+        <p class="privacy" id="privacyNote">Kimlik numaranız yalnızca üyelik kaydınızı bulmak için kullanılır. Sorgulama kayıtlarında tam T.C. kimlik numaranız saklanmaz.</p>
+        <button id="submitBtn" class="primary-btn" type="submit"><span>Sorgula</span><span aria-hidden="true">→</span></button>
         <p id="message" class="message" role="status" aria-live="polite"></p>
       </form>
-
-      <section id="result" class="result" hidden aria-live="polite"></section>
-      <footer class="footer">
-        <span>Gülpınar Derneği Bilgi Sistemi</span>
-        <span>Güvenli Aidat Sorgulama</span>
-      </footer>
     </section>
-    <p class="bottom-note">Sorun yaşamanız durumunda dernek yönetimiyle iletişime geçebilirsiniz.</p>
+
+    <section id="result" class="result" hidden aria-live="polite"></section>
+    <footer class="footer"><span>Gülpınar Derneği · Bilgi Sistemi</span><span>Birlik · Dayanışma · Kültür</span></footer>
+    <p class="bottom-note">Sorularınız için dernek yönetimiyle iletişime geçebilirsiniz.</p>
   </main>
- <iframe id="apiFrame" name="apiFrame" title="Güvenli sorgulama bağlantısı" style="width:100%;height:200px;border:1px solid red"></iframe>
-  <script src="./app.js?v=4"></script>
+  <script src="./app.js?v=6"></script>
   <script>
     if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./sw.js').catch(() => {});
-      });
+      window.addEventListener('load', () => navigator.serviceWorker.register('./sw.js').catch(() => {}));
     }
   </script>
 </body>
