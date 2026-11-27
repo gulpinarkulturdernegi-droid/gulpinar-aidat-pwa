@@ -1,5 +1,5 @@
 // Güncelleme sonrası eski uygulama kabuğunu temizle; API yanıtları önbelleğe alınmaz.
-const CACHE_NAME = 'gulpinar-aidat-shell-v6';
+const CACHE_NAME = 'gulpinar-aidat-shell-v7';
 self.addEventListener('install', event => {
   event.waitUntil((async()=>{const keys=await caches.keys();await Promise.all(keys.filter(k=>k!==CACHE_NAME).map(k=>caches.delete(k)));await self.skipWaiting();})());
 });

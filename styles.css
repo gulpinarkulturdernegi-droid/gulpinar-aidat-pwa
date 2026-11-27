@@ -81,3 +81,41 @@ input::placeholder{font-size:15px;letter-spacing:0;font-weight:400}
   .thanks strong,.warning strong{font-size:16px}
   .thanks p,.warning p{font-size:13px}
 }
+
+
+/* Sade sorgulama ekranı - sonuç kartlarının mevcut tasarımı korunur. */
+.topbar{margin-bottom:22px}
+.brand-mark{width:58px;height:58px;border-radius:14px;box-shadow:none}
+.brand-name{font-size:20px}
+.query-card{max-width:590px;margin:0 auto;padding:30px 30px 25px;border-radius:18px;box-shadow:0 8px 24px #183c2b08}
+.query-intro{margin-bottom:27px}
+.query-intro .step{font-size:11px;letter-spacing:1px}
+.query-intro h1{font-size:clamp(27px,5vw,34px);line-height:1.15;letter-spacing:-.7px;color:#173d30;margin:9px 0 8px}
+.query-intro p{font-size:14px;line-height:1.55;color:#75867f;margin:0}
+form label{font-size:15px;margin-bottom:10px}
+.field-wrap input{height:66px;padding:0 18px;border:2px solid #dbe5dd;border-radius:12px;background:#fff;font-size:21px;letter-spacing:1.5px}
+.field-wrap input::placeholder{font-size:15px;letter-spacing:0;color:#a0aca5}
+.field-wrap input:focus{border-color:#4b8b69;box-shadow:0 0 0 4px #4b8b6917}
+.privacy{font-size:12px;line-height:1.6;margin:11px 1px 20px}
+.primary-btn{height:62px;border-radius:12px;font-size:16px;letter-spacing:.3px;box-shadow:none}
+.message{font-size:13px;min-height:20px;margin-top:12px}
+.footer{max-width:590px;margin:24px auto 0;font-size:11px}
+.bottom-note{font-size:11px}
+@media(max-width:560px){
+ .page{width:calc(100% - 28px);padding:18px 0 25px}
+ .topbar{gap:11px;margin-bottom:20px}
+ .brand-mark{width:52px;height:52px;padding:4px}
+ .eyebrow{font-size:7px;line-height:1.4;letter-spacing:.25px}
+ .brand-name{font-size:18px}
+ .brand-caption{font-size:11px}
+ .query-card{padding:25px 19px 21px;border-radius:16px}
+ .query-intro{margin-bottom:24px}
+ .query-intro h1{font-size:29px}
+ .query-intro p{font-size:13px}
+ form label{font-size:14px}
+ .field-wrap input{height:64px;font-size:21px}
+ .field-wrap input::placeholder{font-size:13px}
+ .privacy{font-size:11px}
+ .primary-btn{height:60px;font-size:15px}
+ .footer{font-size:9px;flex-wrap:wrap}
+}
