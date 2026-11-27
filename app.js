@@ -121,14 +121,17 @@ function renderResult(data) {
   const totalPaid = totals.ODENEN != null ? totals.ODENEN : (totals.TAHSILAT != null ? totals.TAHSILAT : rows.reduce((s,x)=>s+Number(x.TAHSILAT||x.ODENEN||0),0));
   const totalBalance = totals.KALAN != null ? totals.KALAN : rows.reduce((s,x)=>s+Number(x.KALAN||0),0);
   const hasDebt = Number(totalBalance) > 0;
+  const hasPartialPayment = hasDebt && Number(totalPaid) > 0;
+  const paymentStatus = hasDebt ? (hasPartialPayment ? 'KISMİ ÖDEME' : 'BORÇ VAR') : 'AİDAT TAMAMEN ÖDENDİ';
+  const paymentStatusClass = hasDebt ? (hasPartialPayment ? 'partial' : 'unpaid') : 'paid';
   const years = rows.map(yearCard).join('') || '<div class="year-card">Aidat dönemi kaydı bulunamadı.</div>';
   result.innerHTML = `
     <div class="result-intro">
-      <div class="member-head"><div><h2>${esc(u.AD_SOYAD||u.AD||'Değerli Üyemiz')}</h2><p>Üyelik tarihi: ${dateTR(u.KAYIT_TARIHI)}${u.TELEFON_MASKELI?' · Telefon: '+esc(u.TELEFON_MASKELI):''}</p></div><span class="status">ÜYE KAYDI BULUNDU</span></div>
+      <div class="member-head"><div><h2>${esc(u.AD_SOYAD||u.AD||'Değerli Üyemiz')}</h2><p>Üyelik tarihi: ${dateTR(u.KAYIT_TARIHI)}${u.TELEFON_MASKELI?' · Telefon: '+esc(u.TELEFON_MASKELI):''}</p></div><span class="status ${paymentStatusClass}">${paymentStatus}</span></div>
       <div class="summary">
-        ${metric('Toplam tahakkuk',totalDue)}
-        ${metric('Toplam ödenen',totalPaid,'good')}
-        ${metric('Kalan borç',totalBalance,hasDebt?'danger':'good')}
+        ${metric('TOPLAM AİDAT',totalDue)}
+        ${metric('ÖDENEN TUTAR',totalPaid,'good')}
+        ${metric('KALAN BORÇ',totalBalance,hasDebt?'danger':'good')}
       </div>
     </div>
     ${hasDebt
@@ -137,10 +140,9 @@ function renderResult(data) {
     <div class="year-heading">Yıllara göre aidat dökümü</div>
     <div class="year-grid">${years}</div>
     ${hasDebt ? paymentBlock() : ''}
-    <div class="result-actions"><button type="button" id="newQuery">Yeni sorgulama</button><button type="button" class="secondary" id="printResult">Yazdır / PDF</button></div>`;
+    <div class="result-actions"><button type="button" id="newQuery">YENİ SORGULAMA</button></div>`;
   result.hidden = false;
   $('newQuery').addEventListener('click',()=>{result.hidden=true;$('tc').value='';setMessage('');$('tc').focus();window.scrollTo({top:0,behavior:'smooth'});});
-  $('printResult').addEventListener('click',()=>window.print());
   const copy = $('copyIban');
   if (copy) copy.addEventListener('click',async()=>{try{await navigator.clipboard.writeText(PAYMENT_INFO.iban);copy.textContent='KOPYALANDI ✓';}catch(_){copy.textContent='IBAN KOPYALANAMADI';}});
   result.scrollIntoView({behavior:'smooth',block:'start'});

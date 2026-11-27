@@ -14,3 +14,70 @@ form label{display:block;font-size:12px;font-weight:800;color:#345447;margin-bot
 .loading-screen{position:fixed;inset:0;z-index:99;background:linear-gradient(145deg,#10382e,#1b5942);color:white;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:28px;text-align:center;transition:opacity .45s,visibility .45s}.loading-screen.done{opacity:0;visibility:hidden;pointer-events:none}.loading-mark{width:84px;height:84px;background:white;border-radius:25px;padding:8px;display:grid;place-items:center;box-shadow:0 12px 35px #0003;animation:float 2s ease-in-out infinite}.loading-mark img{width:100%;height:100%;object-fit:contain}.loading-brand{font-size:12px;letter-spacing:2px;font-weight:900;color:#e6ca87;margin-top:24px}.loading-title{font-size:22px;font-weight:850;margin-top:10px}.loading-sub{font-size:12px;color:#c9ddd1;margin-top:9px;min-height:18px}.loading-track{width:min(250px,75vw);height:4px;background:#ffffff25;border-radius:10px;overflow:hidden;margin-top:25px}.loading-track span{display:block;height:100%;width:35%;background:#e4c77e;border-radius:10px;animation:load 1.5s ease-in-out infinite}.loading-foot{font-size:10px;color:#b3cbbd;letter-spacing:1px;margin-top:25px}@keyframes load{0%{transform:translateX(-110%)}100%{transform:translateX(390%)}}@keyframes float{50%{transform:translateY(-6px)}}
 @media(max-width:560px){.page{width:calc(100% - 24px);padding:15px 0 24px}.topbar{margin-bottom:17px}.brand-mark{width:48px;height:48px}.eyebrow{font-size:7px;letter-spacing:.35px}.brand-name{font-size:17px}.brand-caption{font-size:10px}.secure{font-size:0;padding:9px}.secure span{margin:0}.hero{padding:25px 21px 27px;border-radius:21px}.hero h1{font-size:34px}.hero p{font-size:12px;max-width:300px}.hero-symbol{right:17px;font-size:120px}.support-note{padding:13px;gap:10px}.support-note p{font-size:10px}.query-card{padding:19px 16px;border-radius:19px}.section-heading h2{font-size:16px}.summary{gap:7px}.metric{padding:11px 8px}.metric span{font-size:9px}.year-grid{grid-template-columns:1fr}.year-card{padding:14px}.footer{font-size:9px}.member-head h2{font-size:17px}}
 @media print{body{background:#fff}.page{width:100%;padding:0}.topbar,.hero,.support-note,.query-card,.footer,.bottom-note,.result-actions{display:none!important}.result{display:block!important}.result-intro,.year-card{break-inside:avoid;box-shadow:none}}
+
+
+/* Büyük yazılı, kolay anlaşılır aidat sorgulama ekranı */
+.query-card{padding:30px}
+.section-heading h2{font-size:clamp(22px,4vw,27px)}
+form label{font-size:17px;margin-bottom:12px}
+input{height:72px;font-size:22px;font-weight:700;letter-spacing:2px;padding-left:20px;border-width:2px;border-radius:16px}
+input::placeholder{font-size:15px;letter-spacing:0;font-weight:400}
+.privacy{font-size:13px;line-height:1.65;margin:12px 1px 20px}
+.primary-btn{height:68px;font-size:19px;border-radius:16px}
+.message{font-size:14px;line-height:1.5}
+.result{margin-top:24px}
+.result-intro{padding:25px;border-radius:22px}
+.member-head{display:flex;flex-direction:column;gap:14px}
+.member-head h2{font-size:clamp(25px,5vw,32px);line-height:1.2}
+.member-head p{font-size:14px;line-height:1.6}
+.status{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:11px 17px;font-size:15px;letter-spacing:.3px;border-radius:13px;white-space:normal}
+.status.paid{color:#176b3d;background:#e2f5e7;border:2px solid #b8e2c4}
+.status.unpaid{color:#a92e28;background:#fff0ee;border:2px solid #f0c7c2}
+.status.partial{color:#8b5b08;background:#fff6df;border:2px solid #f0dda7}
+.summary{grid-template-columns:1fr;gap:12px;margin-top:22px}
+.metric{min-height:104px;padding:18px 20px;border-radius:17px;display:flex;flex-direction:column;justify-content:center;gap:9px}
+.metric span{font-size:15px;font-weight:850;letter-spacing:.45px;margin:0;color:#60766a}
+.metric strong{font-size:clamp(27px,6vw,35px);line-height:1.15;letter-spacing:-.5px}
+.metric.good{background:#edf8ef;border:2px solid #d2ead7}
+.metric.good strong{color:#216c40}
+.metric.danger{background:#fff0ee;border:2px solid #f0d1cc}
+.metric.danger strong{color:#b3312a}
+.thanks,.warning{padding:20px;border-radius:17px;gap:14px}
+.notice-icon{font-size:27px;font-weight:900}
+.thanks strong,.warning strong{font-size:17px;line-height:1.4}
+.thanks p,.warning p{font-size:14px;line-height:1.65}
+.year-heading{font-size:20px;margin:25px 2px 13px}
+.year-grid{grid-template-columns:1fr;gap:13px}
+.year-card{padding:20px;border-radius:18px}
+.year-top{margin-bottom:15px}
+.year{font-size:25px}
+.year-state{font-size:13px;padding:9px 12px}
+.year-line{font-size:15px;padding:11px 0}
+.year-line strong{font-size:16px}
+.iban-card{padding:22px;border-radius:18px}
+.iban-card h3{font-size:19px}
+.iban-card p,.iban-holder{font-size:14px;line-height:1.6}
+.iban-value{font-size:16px;padding:15px}
+.copy-iban{font-size:14px;padding:14px 18px}
+.result-actions{margin-top:18px}
+.result-actions button{min-height:60px;font-size:17px;border-radius:15px}
+.result-actions button:first-child{background:#174c3c;color:#fff;width:100%}
+@media(max-width:560px){
+  .query-card{padding:22px 17px}
+  .section-heading h2{font-size:21px}
+  input{height:70px;font-size:21px}
+  input::placeholder{font-size:13px}
+  .primary-btn{height:66px;font-size:18px}
+  .result-intro{padding:20px 16px}
+  .member-head h2{font-size:25px}
+  .member-head p{font-size:13px}
+  .status{font-size:13px;min-height:44px}
+  .metric{min-height:98px;padding:17px}
+  .metric span{font-size:14px}
+  .metric strong{font-size:29px}
+  .year{font-size:23px}
+  .year-line{font-size:14px}
+  .year-line strong{font-size:15px}
+  .thanks strong,.warning strong{font-size:16px}
+  .thanks p,.warning p{font-size:13px}
+}
